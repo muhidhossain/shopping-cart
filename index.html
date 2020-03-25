@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="addBtn1" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="quantity1" type="text" class="form-control text-center" value="1">
+                           <button id="addBtn2" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="iphonePrice">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="addBtn3" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="quantity2" type="text" class="form-control text-center" value="1">
+                           <button id="addBtn4" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$<span id="casePrice">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$<span id="subTotal">1,278</span></h5>
+                        <h5>$0</h5>
+                        <h5>$<span id="total">1,278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</body>
+
+<script>
+   // - iPhone button handler
+   const addBtn1 = document.getElementById("addBtn1");
+   addBtn1.addEventListener("click", function(){
+      const number = 1;
+      const singlePrice = 1219;
+      const totalQuantity = document.getElementById("quantity1").value;
+
+      addQuantity("quantity1", -1 * number)
+      updatePrice("iphonePrice", totalQuantity - 2, singlePrice)
+      totalCalculator("subTotal", "total");
+   })
+
+   // + iPhone button handler
+   const addBtn2 = document.getElementById("addBtn2");
+   addBtn2.addEventListener("click", function(){
+      const number = 1;
+      const singlePrice = 1219;
+      const totalQuantity = document.getElementById("quantity1").value;
+
+      addQuantity("quantity1", number);
+      updatePrice("iphonePrice", totalQuantity, singlePrice);
+      totalCalculator("subTotal", "total");
+   })
+
+   // - case button handler
+
+   const addBtn3 = document.getElementById("addBtn3");
+   addBtn3.addEventListener("click", function(){
+      const number = 1;
+      const singlePrice = 59;
+      const totalQuantity = document.getElementById("quantity2").value;
+
+      addQuantity("quantity2", -1 * number);
+      updatePrice("casePrice", totalQuantity - 2, singlePrice);
+      totalCalculator("subTotal", "total");
+   })
+
+   // + case button handler
+   const addBtn4 = document.getElementById("addBtn4");
+   addBtn4.addEventListener("click", function(){
+      const number = 1;
+      const singlePrice = 59;
+      const totalQuantity = document.getElementById("quantity2").value;
+
+      addQuantity("quantity2", number);
+      updatePrice("casePrice", totalQuantity, singlePrice);
+      totalCalculator("subTotal", "total");
+   })
+
+   function addQuantity(id, number){
+      const quantity = document.getElementById(id).value;
+      const quantityNumber = parseFloat(quantity);
+      const totalQuantity = number + quantityNumber;
+      document.getElementById(id).value = totalQuantity;
+         
+   }
+
+   function updatePrice(id, totalQuantity, singlePrice){
+      const finalQuantity = parseFloat(totalQuantity) + 1;
+      const price = singlePrice * finalQuantity;
+      document.getElementById(id).innerText = price;
+   }
+
+   function totalCalculator(subTotal, total){
+      const iphoneTotalPrice = document.getElementById("iphonePrice").innerText;
+      const caseTotalPrice = document.getElementById("casePrice").innerText;
+      const iphoneTotalPriceNumber = parseFloat(iphoneTotalPrice);
+      const caseTotalPriceNumber = parseFloat(caseTotalPrice);
+      const subtotal = iphoneTotalPriceNumber + caseTotalPriceNumber;
+      document.getElementById(subTotal).innerText = subtotal;
+      document.getElementById(total).innerText = subtotal;
+   }
+
+</script>
+
+</html>
